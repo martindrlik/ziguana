@@ -3,11 +3,29 @@ const Io = std.Io;
 
 const ziguana = @import("ziguana");
 
+const Example = enum {
+    async,
+    dice,
+};
+
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
-    std.debug.print("async:\n", .{});
-    ziguana.async.sums(io);
 
-    std.debug.print("\nrandom:\n", .{});
-    std.debug.print("dice roll {d}\n", .{ziguana.dice.roll(io)});
+    var args_iter = argsIter(init);
+    while (args_iter.next()) |arg| {
+        const example = std.meta.stringToEnum(Example, arg) orelse {
+            return error.InvalidExampleChoice;
+        };
+        switch (example) {
+            .async => ziguana.async.sums(io),
+            .dice => ziguana.diceRoll(io),
+        }
+        std.debug.print("--\n", .{});
+    }
+}
+
+fn argsIter(init: std.process.Init) std.process.Args.Iterator {
+    var iter = init.minimal.args.iterate();
+    _ = iter.next();
+    return iter;
 }
