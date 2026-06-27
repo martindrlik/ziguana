@@ -7,6 +7,7 @@ const Example = enum {
     async,
     cancel,
     dice,
+    stdio,
 };
 
 pub fn main(init: std.process.Init) !void {
@@ -21,6 +22,7 @@ pub fn main(init: std.process.Init) !void {
             .async => ziguana.async.sums(io),
             .cancel => ziguana.cancel.sleep(io),
             .dice => ziguana.diceRoll(io),
+            .stdio => try ziguana.stdio.sayThatName(io),
         }
         std.debug.print("--\n", .{});
     }
