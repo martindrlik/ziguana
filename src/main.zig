@@ -5,6 +5,7 @@ const ziguana = @import("ziguana");
 
 const Example = enum {
     async,
+    cancel,
     dice,
 };
 
@@ -18,6 +19,7 @@ pub fn main(init: std.process.Init) !void {
         };
         switch (example) {
             .async => ziguana.async.sums(io),
+            .cancel => ziguana.cancel.sleep(io),
             .dice => ziguana.diceRoll(io),
         }
         std.debug.print("--\n", .{});
