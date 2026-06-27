@@ -4,6 +4,7 @@ const Io = std.Io;
 pub const async = @import("async.zig");
 pub const cancel = @import("cancel.zig");
 pub const dice = @import("dice.zig");
+pub const enums = @import("enums.zig");
 pub const stdio = @import("stdio.zig");
 
 pub fn diceRoll(io: Io) void {
