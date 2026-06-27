@@ -13,7 +13,7 @@ pub fn sums(io: Io) void {
     const sum1 = task1.await(io);
     const sum2 = task2.await(io);
 
-    std.debug.print("Total sum = {}\n", .{sum1 + sum2});
+    std.debug.print("total sum = {}\n", .{sum1 + sum2});
 }
 
 fn sum(start: usize, end: usize) usize {

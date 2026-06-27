@@ -12,8 +12,8 @@ const Example = enum {
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
 
-    var args_iter = argsIter(init);
-    while (args_iter.next()) |arg| {
+    var args = try init.minimal.args.toSlice(init.arena.allocator());
+    for (args[1..]) |arg| {
         const example = std.meta.stringToEnum(Example, arg) orelse {
             return error.InvalidExampleChoice;
         };
@@ -24,10 +24,4 @@ pub fn main(init: std.process.Init) !void {
         }
         std.debug.print("--\n", .{});
     }
-}
-
-fn argsIter(init: std.process.Init) std.process.Args.Iterator {
-    var iter = init.minimal.args.iterate();
-    _ = iter.next();
-    return iter;
 }
