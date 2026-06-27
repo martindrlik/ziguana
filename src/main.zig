@@ -3,7 +3,7 @@ const Io = std.Io;
 
 const ziguana = @import("ziguana");
 
-const Example = enum { async, cancel, dice, enums, read, stdio, write };
+const Example = enum { arraylist, async, cancel, dice, enums, read, stdio, write };
 
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
@@ -17,6 +17,7 @@ pub fn main(init: std.process.Init) !void {
             return error.InvalidExampleChoice;
         };
         switch (example) {
+            .arraylist => try ziguana.arraylist.showroom(init.gpa),
             .async => ziguana.async.sums(io),
             .cancel => ziguana.cancel.sleep(io),
             .dice => ziguana.diceRoll(io),

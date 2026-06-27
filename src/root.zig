@@ -1,6 +1,7 @@
 const std = @import("std");
 const Io = std.Io;
 
+pub const arraylist = @import("arraylist.zig");
 pub const async = @import("async.zig");
 pub const cancel = @import("cancel.zig");
 pub const dice = @import("dice.zig");
