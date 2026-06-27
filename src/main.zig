@@ -8,6 +8,7 @@ const Example = enum {
     cancel,
     dice,
     enums,
+    read,
     stdio,
 };
 
@@ -27,6 +28,7 @@ pub fn main(init: std.process.Init) !void {
             .cancel => ziguana.cancel.sleep(io),
             .dice => ziguana.diceRoll(io),
             .enums => ziguana.enums.enumerate(),
+            .read => try ziguana.read.fixed(),
             .stdio => try ziguana.stdio.sayThatName(io),
         }
     }
