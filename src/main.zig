@@ -3,14 +3,7 @@ const Io = std.Io;
 
 const ziguana = @import("ziguana");
 
-const Example = enum {
-    async,
-    cancel,
-    dice,
-    enums,
-    read,
-    stdio,
-};
+const Example = enum { async, cancel, dice, enums, read, stdio, write };
 
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
@@ -30,6 +23,7 @@ pub fn main(init: std.process.Init) !void {
             .enums => ziguana.enums.enumerate(),
             .read => try ziguana.read.fixed(),
             .stdio => try ziguana.stdio.sayThatName(io),
+            .write => try ziguana.write.fixed(),
         }
     }
 }
