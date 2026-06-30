@@ -3,7 +3,17 @@ const Io = std.Io;
 
 const ziguana = @import("ziguana");
 
-const Example = enum { arraylist, async, cancel, dice, enums, read, stdio, write };
+const Example = enum {
+    arraylist,
+    async,
+    cancel,
+    dice,
+    enums,
+    queue,
+    read,
+    stdio,
+    write,
+};
 
 pub fn main(init: std.process.Init) !void {
     const io = init.io;
@@ -13,15 +23,13 @@ pub fn main(init: std.process.Init) !void {
         if (i > 0) {
             std.debug.print("\n", .{});
         }
-        const example = std.meta.stringToEnum(Example, arg) orelse {
-            return error.InvalidExampleChoice;
-        };
-        switch (example) {
+        switch (std.meta.stringToEnum(Example, arg) orelse return error.UnknownExample) {
             .arraylist => try ziguana.arraylist.showroom(init.gpa),
             .async => ziguana.async.sums(io),
             .cancel => ziguana.cancel.sleep(io),
-            .dice => ziguana.diceRoll(io),
+            .dice => ziguana.dice.roll(io),
             .enums => ziguana.enums.enumerate(),
+            .queue => try ziguana.queue.showroom(io),
             .read => try ziguana.read.fixed(),
             .stdio => try ziguana.stdio.sayThatName(io),
             .write => try ziguana.write.fixed(),
