@@ -6,10 +6,7 @@ pub const async = @import("async.zig");
 pub const cancel = @import("cancel.zig");
 pub const dice = @import("dice.zig");
 pub const enums = @import("enums.zig");
+pub const queue = @import("queue.zig");
 pub const read = @import("read.zig");
 pub const stdio = @import("stdio.zig");
 pub const write = @import("write.zig");
-
-pub fn diceRoll(io: Io) void {
-    std.debug.print("The result of the dice roll is {d}\n", .{dice.roll(io)});
-}
