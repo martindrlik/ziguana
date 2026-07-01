@@ -1,7 +1,7 @@
 const std = @import("std");
 const Io = std.Io;
 
-pub fn fixed() !void {
+pub fn basic() !void {
     const quote =
         \\The moment you doubt whether you can fly,
         \\you cease forever to be able to do it.
