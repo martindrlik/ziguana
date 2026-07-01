@@ -2,7 +2,7 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 const ArrayList = std.ArrayList;
 
-pub fn showroom(gpa: Allocator) !void {
+pub fn basic(gpa: Allocator) !void {
     var list: ArrayList(u8) = .empty;
     defer list.deinit(gpa);
     try list.append(gpa, 1);

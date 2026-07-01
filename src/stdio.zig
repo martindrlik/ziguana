@@ -2,7 +2,7 @@ const std = @import("std");
 const builtin = @import("builtin");
 const Io = std.Io;
 
-pub fn sayThatName(io: Io) !void {
+pub fn basic(io: Io) !void {
     var buf: [40]u8 = undefined;
     var stdin = Io.File.stdin().reader(io, &buf);
     var stdout = Io.File.stdout().writer(io, &.{});

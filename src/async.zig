@@ -1,7 +1,7 @@
 const std = @import("std");
 const Io = std.Io;
 
-pub fn sums(io: Io) void {
+pub fn basic(io: Io) void {
     var task1 = io.async(sum, .{ 1, 500 });
     defer _ = task1.cancel(io);
 
