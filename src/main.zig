@@ -4,12 +4,13 @@ const Io = std.Io;
 const ziguana = @import("ziguana");
 
 const Example = enum {
-    arraylist,
+    arrayList,
     async,
     cancel,
     dice,
     enums,
     interface,
+    netHello,
     queue,
     read,
     stdio,
@@ -25,16 +26,17 @@ pub fn main(init: std.process.Init) !void {
             std.debug.print("\n", .{});
         }
         switch (std.meta.stringToEnum(Example, arg) orelse return error.UnknownExample) {
-            .arraylist => try ziguana.arraylist.showroom(init.gpa),
-            .async => ziguana.async.sums(io),
-            .cancel => ziguana.cancel.sleep(io),
-            .dice => ziguana.dice.roll(io),
-            .enums => ziguana.enums.enumerate(),
+            .arrayList => try ziguana.arrayList.basic(init.gpa),
+            .async => ziguana.async.basic(io),
+            .cancel => ziguana.cancel.basic(io),
+            .dice => ziguana.dice.basic(io),
+            .enums => ziguana.enums.basic(),
             .interface => ziguana.interface.basic(),
-            .queue => try ziguana.queue.showroom(io),
-            .read => try ziguana.read.fixed(),
-            .stdio => try ziguana.stdio.sayThatName(io),
-            .write => try ziguana.write.fixed(),
+            .netHello => try ziguana.netHello.basic(io),
+            .queue => try ziguana.queue.basic(io),
+            .read => try ziguana.read.basic(),
+            .stdio => try ziguana.stdio.basic(io),
+            .write => try ziguana.write.basic(),
         }
     }
 }

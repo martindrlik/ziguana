@@ -3,7 +3,7 @@ const Io = std.Io;
 const T = i64;
 const Queue = std.Io.Queue(T);
 
-pub fn showroom(io: Io) !void {
+pub fn basic(io: Io) !void {
     var buf: [3]T = undefined;
     var que = Queue.init(&buf);
     var group = std.Io.Group.init;

@@ -2,29 +2,24 @@ const std = @import("std");
 const Io = std.Io;
 const HostName = Io.net.HostName;
 
-pub fn basic(init: std.process.Init) !void {
-    var client: std.http.Client = .{ .allocator = init.gpa, .io = init.io };
-    defer client.deinit();
+pub fn basic(io: Io) !void {
+    var stream = try HostName.connect(
+        try .init("example.com"),
+        io,
+        443,
+        .{
+            .mode = .stream,
+            .protocol = .tcp,
+        },
+    );
+    var buffer: [16000]u8 = undefined;
+    var writer = stream.writer(io, &buffer);
+    try writer.interface.writeAll("GET /\r\n\r\n");
+    try writer.interface.flush();
 
-    const uri = try std.Uri.parse("https://mnaugirl.netlify.app");
-
-    var req = try client.request(.GET, uri, .{});
-    defer req.deinit();
-
-    try req.sendBodiless();
-
-    var buf: [16000]u8 = undefined;
-    var res = try req.receiveHead(&buf);
-
-    var iter = res.head.iterateHeaders();
-    while (iter.next()) |header| {
-        std.debug.print("{s}: {s}\n", .{ header.name, header.value });
+    var reader = stream.reader(io, &buffer);
+    while (true) {
+        const text = try reader.interface.takeDelimiter('>') orelse break;
+        std.debug.print("{s}>", .{text});
     }
-
-    std.debug.print("status: {}\n", .{res.head.status});
-
-    const body = try res.reader(&.{}).allocRemaining(init.gpa, .unlimited);
-    defer init.gpa.free(body);
-
-    std.debug.print("body:\n{s}\n", .{body});
 }
