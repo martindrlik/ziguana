@@ -12,5 +12,9 @@ pub fn init(first_name: []const u8) Person {
 }
 
 fn name(n: *const Named) []const u8 {
-    return n.parent(Person).first_name;
+    return person(n).first_name;
+}
+
+fn person(n: *const Named) *const Person {
+    return @alignCast(@fieldParentPtr("named", n));
 }

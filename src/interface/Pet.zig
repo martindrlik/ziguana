@@ -12,5 +12,9 @@ pub fn init(pet_name: []const u8) Pet {
 }
 
 fn name(n: *const Named) []const u8 {
-    return n.parent(Pet).pet_name;
+    return pet(n).pet_name;
+}
+
+fn pet(n: *const Named) *const Pet {
+    return @alignCast(@fieldParentPtr("named", n));
 }

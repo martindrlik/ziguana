@@ -6,10 +6,6 @@ pub fn init(name_fn: *const fn (n: *const Named) []const u8) Named {
     return .{ .vtable = .{ .name = name_fn } };
 }
 
-pub fn parent(n: *const Named, comptime T: type) *const T {
-    return @alignCast(@fieldParentPtr("named", n));
-}
-
 pub const VTable = struct {
     name: *const fn (n: *const Named) []const u8,
 };
